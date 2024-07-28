@@ -4,6 +4,7 @@ import  beachImage from "@/assets/meditation-images/beach.webp"
 import { LinearGradient } from 'expo-linear-gradient'
 import { StatusBar } from 'expo-status-bar'
 import CustomButton from '@/components/CustomButton'
+import { router } from 'expo-router'
 
 const App = () => {
   return (
@@ -27,7 +28,7 @@ const App = () => {
        </View>
        <View>
          <CustomButton 
-           onPress={()=>console.log('button pressed')}
+           onPress={()=>router.push("/nature-meditate")}
             title='Get Started'
          />
        </View>
