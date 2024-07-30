@@ -33,6 +33,12 @@ const Meditate = () => {
     return ()=>clearTimeout(timerId)
   },[secondsRemaining,isMedidating])
 
+
+   useEffect(()=>{
+        return () =>{
+          audioSound?.unloadAsync();
+        }
+   },[audioSound])
   const toggleMeditationStatus = async ()=>{
     if (secondsRemaining===0) setSecondsRemaining(10);
 
@@ -47,10 +53,10 @@ const Meditate = () => {
     const status  = await sound?.getStatusAsync();
 
     if (status?.isLoaded && !isPlayingAudio){
-      await sound?.playAsync();
+      await sound.playAsync();
       setPlayingAudio(true);
     } else {
-      await sound?.pauseAsync();
+      await sound.pauseAsync();
       setPlayingAudio(false);
     }
   }
@@ -92,7 +98,8 @@ const Meditate = () => {
        </View>
         
         <View className='mb-5'>
-          <CustomButton  title="Start Medidation" onPress={toggleMeditationStatus } />
+          <CustomButton  title= {isMedidating ? 'Stop Meditation' : 'Start Meditation'}  
+          onPress={toggleMeditationStatus } />
         </View>
 
         </AppGradient>
