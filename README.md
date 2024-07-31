@@ -4,7 +4,7 @@
 This project is a mobile application designed to provide users with a relaxing and meditative experience. The app is developed using React Native and Expo, featuring animations powered by Reanimated and music provided by Suno AI.
 
 
-###### Cloned from  [Freecodecamp](https://github.com/stevenGarciaDev/simple-meditation-app-expo-react-native "")
+###### Cloned from  [Freecodecamp&StevenGarcia](https://github.com/stevenGarciaDev/simple-meditation-app-expo-react-native "")
 
 - Expo
 - react reanimated
