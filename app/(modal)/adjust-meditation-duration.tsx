@@ -35,7 +35,7 @@ const {setDuration} = useContext(TimerContext);
   return (
     <View className='flex-1 relative'>
       <AppGradient colors={['#161b2e', '#0a4d4a', '#766e67']}>
-        <Text> Test </Text>
+
         <Pressable
           onPress={() => router.back()}
           className='absolute top-8 left-6 z-10 '
