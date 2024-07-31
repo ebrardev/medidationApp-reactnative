@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground, Pressable } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MEDITATION_IMAGES from '@/constants/meditation-images'
 import AppGradient from '@/components/AppGradient'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -7,10 +7,11 @@ import { AntDesign } from '@expo/vector-icons';
 import CustomButton from '@/components/CustomButton'
 import { Audio } from 'expo-av';
 import { MEDITATION_DATA,AUDIO_FILES } from '@/constants/MeditationData'
+import { TimerContext } from '@/context/TimerContext'
 
 const Meditate = () => {
   const {id} = useLocalSearchParams();
-  const [secondsRemaining, setSecondsRemaining] = useState(10);
+  const {duration:secondsRemaining ,setDuration}= useContext(TimerContext);
   const [isMedidating, setIsMeditating] = useState(false);
   const [audioSound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlayingAudio, setPlayingAudio] = useState(false);
@@ -25,7 +26,7 @@ const Meditate = () => {
 
     if (isMedidating){
       timerId = setTimeout(()=>{
-        setSecondsRemaining(secondsRemaining-1)
+        setDuration(secondsRemaining-1)
        },1000)
     }
 
@@ -40,7 +41,7 @@ const Meditate = () => {
         }
    },[audioSound])
   const toggleMeditationStatus = async ()=>{
-    if (secondsRemaining===0) setSecondsRemaining(10);
+    if (secondsRemaining===0) setDuration(10);
 
     setIsMeditating(!isMedidating);
    await  toggleSound();
@@ -70,6 +71,11 @@ const Meditate = () => {
     return sound;
 
   }
+  const handleAdjustDuration = () =>{
+    if (isMedidating) toggleMeditationStatus();
+     
+    router.push('/(modal)/adjust-meditation-duration')
+  }
 
   // format the time 
   const formattedTimeMinutes = String(Math.floor(secondsRemaining/60)).padStart(2,'0');
@@ -96,10 +102,19 @@ const Meditate = () => {
         </View>
 
        </View>
-        
+
+
         <View className='mb-5'>
+        <CustomButton  title= "Adjust Duration"
+        containerStyles='bg-blue-500' 
+        
+          onPress={handleAdjustDuration } />
           <CustomButton  title= {isMedidating ? 'Stop Meditation' : 'Start Meditation'}  
-          onPress={toggleMeditationStatus } />
+          onPress={toggleMeditationStatus }
+          containerStyles='mt-4'
+          
+          />
+          
         </View>
 
         </AppGradient>
